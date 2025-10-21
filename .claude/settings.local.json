@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git lfs version)",
+      "Bash(git update-ref -d HEAD)",
+      "Bash(git lfs untrack \"data/data.csv\")"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

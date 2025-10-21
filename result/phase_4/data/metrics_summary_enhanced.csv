@@ -1,0 +1,6 @@
+Model,First_Alarm_Cycle,C80_Cycle,Lead_Time_Cycles,AUROC,FPR_Train,Threshold,N_Support_Vectors,Total_Anomalies,Post_Training_Anomalies,Early_Warning
+QUANTUM,121.0,965,844.0,0.4954,0.05,0.000611,19,29,28,Yes
+RBF,,965,,0.5756,0.05,0.065176,7,1,0,N/A
+LAPLACIAN,,965,,0.9998,0.05,0.026493,9,1,0,N/A
+POLY2,160.0,965,805.0,0.0005,0.05,5.133115,2,1069,1068,Yes
+POLY3,506.0,965,459.0,0.9961,0.05,25.563402,2,3,2,Yes

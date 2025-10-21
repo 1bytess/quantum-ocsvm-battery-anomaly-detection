@@ -1,0 +1,23 @@
+{
+  "rbf": {
+    "type": "radial_basis_function",
+    "gamma": 0.041459516957689756,
+    "gamma_method": "median_heuristic",
+    "median_distance": 3.472744908422876
+  },
+  "laplacian": {
+    "type": "laplacian",
+    "gamma": 0.041459516957689756,
+    "gamma_method": "same_as_rbf"
+  },
+  "polynomial_deg2": {
+    "type": "polynomial",
+    "degree": 2,
+    "coef0": 1
+  },
+  "polynomial_deg3": {
+    "type": "polynomial",
+    "degree": 3,
+    "coef0": 1
+  }
+}

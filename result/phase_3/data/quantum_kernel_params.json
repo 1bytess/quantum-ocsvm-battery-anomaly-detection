@@ -1,0 +1,8 @@
+{
+  "type": "ZZ_Pauli_entangling",
+  "n_qubits": 8,
+  "depth": 2,
+  "circuit_depth": 52,
+  "n_gates": 80,
+  "encoding": "RZ + RY rotations with ZZ entanglement"
+}

@@ -1,0 +1,21 @@
+{
+  "target_fpr": 0.05,
+  "calibration_method": "95th_percentile",
+  "n_training_samples": 20,
+  "anomaly_convention": "score > threshold indicates anomaly",
+  "score_interpretation": "higher score = more nominal, lower score = more anomalous",
+  "thresholds": {
+    "quantum": 0.0006112386226312617,
+    "rbf": 0.06517565610622714,
+    "laplacian": 0.02649292385328813,
+    "poly2": 5.133115078054145,
+    "poly3": 25.563401645764966
+  },
+  "actual_fpr_per_model": {
+    "quantum": 0.05,
+    "rbf": 0.05,
+    "laplacian": 0.05,
+    "poly2": 0.05,
+    "poly3": 0.05
+  }
+}
