@@ -1,21 +1,13 @@
 {
   "target_fpr": 0.05,
-  "calibration_method": "95th_percentile",
+  "calibration_method": "5th_percentile",
   "n_training_samples": 20,
-  "anomaly_convention": "score > threshold indicates anomaly",
-  "score_interpretation": "higher score = more nominal, lower score = more anomalous",
+  "anomaly_convention": "score < threshold indicates anomaly",
   "thresholds": {
-    "quantum": 0.0006112386226312617,
-    "rbf": 0.06517565610622714,
-    "laplacian": 0.02649292385328813,
-    "poly2": 5.133115078054145,
-    "poly3": 25.563401645764966
-  },
-  "actual_fpr_per_model": {
-    "quantum": 0.05,
-    "rbf": 0.05,
-    "laplacian": 0.05,
-    "poly2": 0.05,
-    "poly3": 0.05
+    "quantum": -0.00036057553075694514,
+    "rbf": -0.0003202940481593586,
+    "laplacian": -0.00022760196547769727,
+    "poly2": 1.7607285567322607e-07,
+    "poly3": 5.727211032535707e-07
   }
 }

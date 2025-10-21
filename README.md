@@ -15,7 +15,7 @@ This repository presents a novel approach to battery health monitoring using **q
 ### Key Highlights
 
 - **Quantum Feature Mapping**: ZZ/Pauli entangling circuit with depth-2, 8-qubit encoding
-- **Early Detection**: Quantum kernel achieves **844-cycle lead-time** (first alarm at cycle 121, 97.66% capacity remaining)
+- **Early Detection**: Quantum kernel achieves **944-cycle lead-time** (first alarm at cycle 21, 98.78% capacity remaining)
 - **One-Class Learning**: Trained exclusively on first 20 nominal cycles (ν=0.05)
 - **Comprehensive Benchmarking**: Comparison against RBF, Laplacian, and Polynomial kernels
 - **Real Battery Data**: Analysis of 1,241 discharge cycles from lithium-ion cell degradation
@@ -56,7 +56,7 @@ Extracted 8 physical features per cycle:
    - Circuit depth: 52, Total gates: 80
 3. **Kernel Computation**: K(x₁, x₂) = |⟨φ(x₁)|φ(x₂)⟩|² via statevector simulation
 4. **OC-SVM Training**: ν-OCSVM with precomputed kernel, ν=0.05
-5. **Threshold Calibration**: 95th percentile on training scores (5% FPR)
+5. **Threshold Calibration**: 5th percentile on training scores (5% FPR, anomaly when score < threshold)
 
 ### Phase 4: Evaluation & Visualization
 
@@ -72,17 +72,17 @@ Extracted 8 physical features per cycle:
 
 | Model       | First Alarm | Lead-Time | AUROC  | Support Vectors |
 |-------------|-------------|-----------|--------|-----------------|
-| **Quantum** | **Cycle 121** | **844** | 0.4954 | 19              |
-| RBF         | No alarm    | N/A       | 0.5756 | 7               |
-| Laplacian   | No alarm    | N/A       | **0.9998** | 9           |
-| Poly (d=2)  | Cycle 160   | 805       | 0.0005 | 2               |
-| Poly (d=3)  | Cycle 506   | 459       | 0.9961 | 2               |
+| **Quantum** | **Cycle 21** | **944** | 0.4954 | 19              |
+| RBF         | Cycle 21    | 944       | 0.5756 | 7               |
+| Laplacian   | Cycle 21    | 944       | **0.9998** | 9           |
+| Poly (d=2)  | Cycle 24    | 941       | 0.0005 | 2               |
+| Poly (d=3)  | Cycle 24    | 941       | 0.9961 | 2               |
 
 ### Key Findings
 
-- **Best Early Warning**: Quantum kernel detects anomaly at cycle 121 (97.66% capacity), 844 cycles before C80
+- **Best Early Warning**: Quantum, RBF, and Laplacian kernels detect anomaly at cycle 21 (98.78% capacity), 944 cycles before C80
 - **High Discriminative Power**: Laplacian kernel achieves 0.9998 AUROC for early/late separation
-- **Quantum Advantage**: Quantum kernel shows superior early detection compared to standard RBF kernel
+- **Comparable Performance**: Quantum, RBF, and Laplacian kernels all provide early warning with similar lead times
 - **Training Efficiency**: Only 20 nominal cycles required for effective anomaly detection
 
 ### Reference Metrics
@@ -198,26 +198,39 @@ quantum-ocsvm-battery-anomaly-detection/
 │   └── data.csv                                      # Raw battery time-series data
 ├── result/
 │   ├── phase_1/
-│   │   └── data/
-│   │       ├── cycles.pkl                            # Segmented discharge cycles
-│   │       └── summary.csv                           # Cycle statistics
+│   │   ├── data/
+│   │   │   ├── cycles.pkl                            # Segmented discharge cycles
+│   │   │   └── summary.csv                           # Cycle statistics
+│   │   └── plot/                                     # Phase 1 visualizations
 │   ├── phase_2/
 │   │   └── data/
 │   │       └── features.csv                          # Engineered features
 │   ├── phase_3/
 │   │   └── data/
 │   │       ├── scaler.pkl                            # Feature scaler
+│   │       ├── scaling_params.json                   # Scaling parameters
+│   │       ├── quantum_kernel_params.json            # Quantum kernel configuration
+│   │       ├── baseline_kernel_params.json           # Baseline kernel parameters
 │   │       ├── K_quantum_train.npy                   # Quantum kernel (train)
 │   │       ├── K_quantum_full.npy                    # Quantum kernel (full)
 │   │       ├── K_rbf_*.npy, K_laplacian_*.npy, ...  # Baseline kernels
 │   │       ├── ocsvm_quantum.pkl                     # Trained quantum OC-SVM
 │   │       ├── ocsvm_rbf.pkl, ...                    # Baseline models
-│   │       └── thresholds.json                       # Calibrated thresholds
+│   │       ├── thresholds.json                       # Calibrated thresholds
+│   │       ├── threshold_summary.json                # Threshold calibration details
+│   │       └── train_scores.pkl                      # Training scores
 │   └── phase_4/
 │       ├── data/
 │       │   ├── metrics_summary.csv                   # Performance metrics
+│       │   ├── metrics_summary_enhanced.csv          # Enhanced metrics
 │       │   └── first_alarms.json                     # Detection results
-│       └── plot/                                      # Visualization outputs
+│       └── plot/                                     # Visualization outputs
+│           ├── capacity_vs_cycle.png
+│           ├── anomaly_score_vs_cycle_quantum_vs_rbf.png
+│           ├── gram_heatmap_quantum.png
+│           ├── gram_heatmap_rbf.png
+│           ├── kernel_pca_scatter_quantum.png
+│           └── kernel_pca_scatter_rbf.png
 ├── phase_1_data_processing_segmentation.ipynb
 ├── phase_2_feature_engineering.ipynb
 ├── phase_3_load_feature_select_training_cycles.ipynb
@@ -247,8 +260,8 @@ For each layer d ∈ {1, 2}:
 
 ### Anomaly Detection Convention
 
-- **Score Interpretation**: Higher score = more nominal (closer to training distribution)
-- **Anomaly Flag**: Triggered when `score > threshold` (95th percentile)
+- **Score Interpretation**: Higher score = more nominal (closer to training distribution), Lower score = more anomalous
+- **Anomaly Flag**: Triggered when `score < threshold` (5th percentile)
 - **Training FPR**: Calibrated to 5% on nominal cycles
 
 ### Baseline Kernels
@@ -305,4 +318,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-**Last Updated**: October 2024
+**Last Updated**: October 2025
