@@ -1,9 +1,9 @@
 {
   "permissions": {
     "allow": [
-      "Bash(git lfs version)",
-      "Bash(git update-ref -d HEAD)",
-      "Bash(git lfs untrack \"data/data.csv\")"
+      "Bash(dir:*)",
+      "Read(//c/Users/micro/Documents/escl_projects/escl_paper/**)",
+      "Bash(powershell -Command:*)"
     ],
     "deny": [],
     "ask": []
